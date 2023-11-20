@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block titulo %}
+    Criar Conta
+{% endblock %}
+
+{% block content %}
+    <header>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/usuario.css') }}">
+        <!-- card -->
+        <div class="card text-center bg-white dark:bg-slate-900 rounded-lg px-6 py-8 ring-1 ring-slate-900/5 shadow-xl">
+            <div class="card-header">
+                {% if pag != 'criarconta2' %}
+                    <h1 class="card-title fs-5">Finalizar Pedido</h1>
+                {% else %}
+                    <h1 class="card-title fs-5">Criar Conta</h1>
+                {% endif %}
+                <!-- Notificação de erro -->
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for msg in messages %}
+                            <p class="d-flex justify-content-center align-items-center text-danger">{{msg}}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+            <div class="card-body">
+                {% if pag != 'criarconta2' %}
+                    {% if cotas == 1 %}
+                        <div class="alert alert-warning" role="alert"><span id="cotas_compradas">Você está adquirindo {{cotas}} cota da ação </span><strong>{{titulo}}</strong></div>
+                    {% else %}
+                        <div class="alert alert-warning" role="alert"><span id="cotas_compradas">Você está adquirindo {{cotas}} cotas da ação </span><strong>{{titulo}}</strong></div>
+                    {% endif %}
+                    <br>
+                {% else %}
+                    <br>
+                {% endif %}
+                <form method="POST" action="" autocomplete="off">
+                    {{ form.csrf_token() }}
+                    <div class="mb-3">
+                        <label class="label-custom mb-3">Nome Completo</label>
+                        <br>
+                        <input aria-invalid="false" type="text" id="nome" name="nome" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 text-center" placeholder="nome sobrenome ..." required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="label-custom mb-3">E-mail</label>
+                        <br>
+                        <input aria-invalid="false" type="email" id="email" name="email" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 text-center" placeholder="email@examplo.com" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="label-custom mb-3">Telefone:</label>
+                        <br>
+                        <input aria-invalid="false" id="telefone" name="telefone" type="tel" minlength="11" maxlength="11" class="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm text-center" placeholder="( xx ) xxxxx-xxxx" required>      
+                        <br>
+                        <span class="badge bg-danger text-white mt-2 mb-1">IMPORTANTE, DIGITE SUAS INFORMAÇÕES CORRETAMENTE!</span>
+                    </div>
+                    <div class="mb-3" id="verificar">
+                        <button class="bt btn btn-success w-full py-1">
+                            <span>Continuar</span>
+                        </button>
+                    </div>
+                    {% if pag == 'criarconta2' %}
+                        <br><br>
+                        <a class="nav-link active d-flex justify-content-center" aria-current="page" href="{{ url_for('homepage') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" fill="currentColor" class="bi bi-houses " viewBox="0 0 20 16">
+                            <path d="M5.793 1a1 1 0 0 1 1.414 0l.647.646a.5.5 0 1 1-.708.708L6.5 1.707 2 6.207V12.5a.5.5 0 0 0 .5.5.5.5 0 0 1 0 1A1.5 1.5 0 0 1 1 12.5V7.207l-.146.147a.5.5 0 0 1-.708-.708L5.793 1Zm3 1a1 1 0 0 1 1.414 0L12 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l1.854 1.853a.5.5 0 0 1-.708.708L15 8.207V13.5a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 4 13.5V8.207l-.146.147a.5.5 0 1 1-.708-.708L8.793 2Zm.707.707L5 7.207V13.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5V7.207l-4.5-4.5Z"/>
+                            </svg>Home
+                        </a>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </header>
+
+{% endblock %}

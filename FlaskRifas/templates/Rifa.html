@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% block titulo %}
+    Criar Rifa
+{% endblock %}
+
+{% block content %}
+<link href="{{ url_for('static', filename='css/loja.css') }}" rel="stylesheet">
+    <header class="mt-20">
+        <h1 style="display: flex;justify-content: center;">MINHAS RIFAS</h1>
+        <br>
+        <div class="mb-2">
+            <button class="btn btn-secondary w-full py-2" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+                <span class="d-flex align-items-center align-items-center justify-content-center">
+                    <small class="txt">Criar Nova Rifa</small>
+                </span>
+            </button>
+        </div>
+        <br>
+        {% for obj in rifas %}
+<!--    Percorrer o banco de dados de transações do cliente-->
+            <div class="card card-body bg-white dark:bg-slate-900 rounded-lg ring-1 ring-slate-900/5 shadow-lg">
+                <div class="row g-0">
+                    <div class="col-md-4">
+<!--                        adicionar a imagem do banco de dados com o caminho-->
+                        <img src="{{ url_for('static', filename=obj.imagem) }}" class="img-fluid rounded-start img" alt="">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body pointer p-1">
+                            <div class="btn-back d-flex" style="justify-content: flex-end;">
+<!--                                Pegar o id para acessar os detalhes da rifa url_for('função', obj.id)-->
+                                <a type="submit" href="{{ url_for('detalhes', id=obj.id) }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                            <h5 class="text-dark mb-3 d-flex p-2 bg-f5">Prêmio: {{obj.titulo}} <br><br>Total: {{obj.qnty_cotas}} números</h5>
+                            {% if obj.status == 'Em Andamento' %}
+                                <span class="fw-bold text-success mb-3 d-flex p-2 bg-f5">{{obj.status}}</span>
+                            {% else %}
+                                <span class="fw-bold text-danger mb-3 d-flex p-2 bg-f5">{{obj.status}}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Nova Rifa</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" enctype="multipart/form-data" action="" class="form">
+                            <div class="mb-3">
+                                <table>
+                                    <tbody>
+                                        <tr style="display: inline;">
+                                            <td>
+                                                <label for="titulo">Título: </label>
+                                                <br>
+                                                <input id="titulo" name="titulo" required>
+                                            </td>
+                                            <td>
+                                                <label for="quantidade">Quantidade de Números: </label>
+                                                <br>
+                                                <input id="quantidade" name="quantidade" required>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label for="descricao">Descrição: </label>
+                                                <br>
+                                                <textarea id="descricao" name="descricao" style="resize: None;"></textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label for="valor">Valor Cota: </label>
+                                                <br>
+                                                <input id="valor" name="valor" required>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><br>
+                                                <input id="file" name="file" type="file">
+                                                <input id="user" name="user" hidden="hidden" value="{{current_user.id}}">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fechar</button>
+                                <button type="submit" class="btn btn-outline-primary">Criar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}

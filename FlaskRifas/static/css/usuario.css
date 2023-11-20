@@ -1,0 +1,15 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+header{
+    margin-top: 50%;
+    padding: 10%;
+}
+
+.card, .card-header{
+    border: none;
+    /* box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); */
+}

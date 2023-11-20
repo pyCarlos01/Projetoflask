@@ -1,0 +1,23 @@
+header{
+    padding: 10%;
+    font-size: medium;
+}
+
+label{
+    display: inline-block;
+    color: whitesmoke;
+    text-align: center;
+    background-color: rgb(6, 165, 6);
+    width: 100px;
+    border-radius: 6%;
+    margin: 10px;
+}
+
+input[type=number]::-webkit-inner-spin-button { 
+    -webkit-appearance: none;
+}
+
+input[type=number] { 
+   -moz-appearance: textfield;
+   appearance: textfield;
+}

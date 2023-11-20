@@ -1,0 +1,35 @@
+header{
+    padding: 10%;
+}
+
+img{
+    width: 35%;
+    height: auto;
+}
+
+.pg{
+    display: flex;
+    font-size: larger;
+}
+
+.row{
+    padding-top: 8px;
+}
+
+.bt{
+    padding-top: 15%;
+    font-size: larger;
+}
+
+.notificacao{
+    display: none;
+    color: black;
+    font-size: large;
+    padding-left: 25%;
+    margin-top: 50px;
+}
+
+.font{
+    font-size: x-large;
+}
+

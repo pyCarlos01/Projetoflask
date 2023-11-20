@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block titulo %}
+    Minhas Transações
+{% endblock %}
+
+{% block content %}
+<link href="{{ url_for('static', filename='css/transacoes.css') }}" rel="stylesheet">
+  <header class="mt-20 p-10">
+    <h1 style="display: flex;justify-content: center;">MINHAS TRANSAÇÕES</h1>
+    <br>
+    {% for i in pagamentos %}
+<!--    Percorrer o banco de dados de transações do cliente-->
+      <div class="card card-body shadow-lg">
+        <div class="card-body pointer">
+          <div class="mb-3 d-flex bg-f5">
+            <h5 class="m-0">Comprovante de Compra</h5>
+            <h4 class="m-0 ms-auto">R$&nbsp;{{i.valor}}</h4>
+<!--            colocar o valor da compra-->
+          </div>
+          {% if i.qnty_cotas > 1 %}
+            <h5 class="text-dark">{{i.qnty_cotas}} cotas</h5>
+          {% else %}
+            <h5 class="text-dark">{{i.qnty_cotas}} cota</h5>
+          {% endif %}
+<!--          colocar quantidade de cotas solicitadas e qual é a rifa-->
+<!--          definir se o pagamento foi aprovado ou não-->
+          {% if i.status == 'Pagamento concluído' %}
+            <span class="fw-bold text-success">Pagamento concluído</span>
+          {% else %}
+            <span class="fw-bold text-danger">Pagamento não concluído</span>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </header>
+{% endblock %}

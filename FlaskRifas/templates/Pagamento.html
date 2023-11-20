@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block titulo %}
+    Pagamento
+{% endblock %}
+
+{% block content %}
+<header>
+    <link href="{{ url_for('static', filename='css/pagar.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/pagar.js') }}"></script>
+    
+    <script>
+        const pg = [
+
+            {
+                txid: '{{ pagamentos.txid }}',
+                id_usuario: '{{ pagamentos.id_usuario }}',
+                status: '{{pagamentos.status}}',
+            }
+        ];
+    </script>
+    
+    <input type="text" name="user" id="user" value="{{current_user.id}}" hidden="">
+    <div class="pg">
+        <img src="{{ url_for('static', filename=txid) }}">
+        <div class="row">
+            <p><small class="font">Aguardando o pix...</small><br><br><small class="font">Valor: R$ {{valor}}</small><br><br><br>Use o aplicativo do seu banco para ler o QR-Code ao lado, ou toque no botão Pix Copia e Cola para copiar o código e realizar a transação no aplicativo do seu banco.</p>
+        </div>
+    </div>
+
+    <div class="bt">
+        <button class="btn btn-success w-full py-2" id="copiacola" onclick="(CopiaCola('{{qrcode}}'))">
+            <span>Pix Copia e Cola</span>
+        </button>
+    </div>
+
+    <div class="bt">
+        <p>Efetue o pagamento em até 10 Minutos, após este período a cobrança passa a ser inválida e será necessário efetuar uma nova compra, caso realize o pagamento atualize a página e você será redirecionado para a loja.</p>    
+    </div>
+    <label class="notificacao" id="notificacao">Código pix copiado para área de transferência!</label>
+</header>
+
+{% endblock %}

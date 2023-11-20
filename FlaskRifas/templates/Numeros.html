@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Minhas Cotas
+{% endblock %}
+
+{% block content %}
+    <link href="{{ url_for('static', filename='css/cotas.css') }}" rel="stylesheet">
+    <script>
+        const rifas = [
+            {% for i in numeros %}
+                {
+                    id: '{{ i.id }}',
+                    id_rifa: '{{ i.id_rifa }}',
+                    id_usuario: '{{ i.id_usuario }}',
+                    id_pagamento: '{{ i.id_pagamento }}',
+                    cota: '{{ i.cota }}',
+                    valor: '{{ i.valor }}',
+                    status: '{{ i.status }}',
+                },
+            {% endfor %}
+        ];
+    </script>
+    <script src="{{ url_for('static', filename='js/cotas.js') }}"></script>
+    <header class="mt-20 p-10" id="hcotas">
+        <h1 style="display: flex;justify-content: center;">MINHAS COTAS</h1>
+        <br>
+        {% for i in rifas %}
+            <div class="card shadow-lg mt-3">
+                <div class="mb-3 card-body" style="display: flex;justify-content: center; flex-direction: column;">
+                    <div class="mt-2">
+                        {% if i.status == 'Em Andamento' %}
+                            <small class="badge bg-success">Ação Aberta</small>
+                        {% else %}
+                            <small class="badge bg-danger">Ação Encerrada</small>
+                        {% endif %}
+                    </div>
+                    <br>
+                        <h5 class="card-title" style="display: inline-block;">Título: {{i.titulo}} </h5>
+                        <p id="{{i.id}}" class="card-text"></p>
+                    <br>
+                    <button id="{{i.id}}" class="btn btn-secondary d-flex align-items-center align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" onclick="cotas({{i.id}})">
+                        <small>Ver Minhas Cotas</small>
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 15 14">
+                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                              </svg>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        {% endfor %}
+    </header>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Meus Números</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body m-2 p-4">
+                    <div class="d-flex" style="justify-content: center;">
+                        <input class="text-center placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" placeholder="Pesquise cota comprada..." id="pesquisa" name="pesquisa" onkeyup="campoPesquisa()" type="number">
+                        <span class="input-group-text">
+                            <a class="text-black" onclick="pesquisarCota()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                </svg>
+                            </a>
+                        </span>
+                    </div>
+                    <br>
+                    <div class="m-3">
+                        <div class="container text-center">                        
+                            <ul id="ulcotas">
+                                <li>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

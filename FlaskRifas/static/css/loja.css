@@ -1,0 +1,35 @@
+header{
+    padding: 5%;
+    padding-top: 5%;
+    font-size: medium;
+}
+
+.img{
+    width: 282px;
+    height: 200px;
+}
+
+.card-body {
+    height: 230px;
+    margin-bottom: 4%;
+    border-radius: 2%;
+    border: none;
+    overflow: hidden;
+}
+
+/* Form da página de Criar Rifas */
+
+.txt{
+    font-size: medium;
+}
+
+input{
+    border-radius: 5%;
+    border-style: groove;
+    border-color: black;
+    background-color: whitesmoke;
+}
+
+.form{
+    font-size: large;
+}

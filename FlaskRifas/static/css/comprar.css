@@ -1,0 +1,52 @@
+header{
+    padding: 10%;
+    font-size: medium;
+}
+
+.ps{
+    font-size: medium;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img{
+    max-width: 100%;
+    width: 784px;
+    height: 500px;
+}
+
+.txt{
+    font-size: medium;
+}
+
+.qnt{
+    background-color: #1111;
+    cursor: pointer;
+}
+
+.maismenos{
+    cursor: pointer;
+}
+
+.atc{
+    width: 150px;
+    display: inline-block;
+    color: black;
+    border-radius: 2%;
+    padding-inline-start: 4px;
+    padding-inline-end: 3px;
+    animation: animar 5s infinite;
+}
+
+@keyframes animar{
+    
+    0% {color: black; padding-inline-start: 4px;}
+    30% {color: green; padding-inline-start: 0px;}
+    60% {color: red; padding-inline-start: 4px;}
+    80% {color: blue; padding-inline-start: 0px;}
+}
+
+.bt{
+    background-color: #198754;
+}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block titulo %}
+    Rifas Store
+{% endblock %}
+
+{% block content %}
+<link href="{{ url_for('static', filename='css/loja.css') }}" rel="stylesheet">
+    <header class="mt-20">
+        <h1 style="display: flex;justify-content: center;">RIFAS STORE</h1>
+        <br>
+        {% for obj in rifas %}
+<!--    Percorrer o banco de dados de transações do cliente-->
+            <div class="card card-body bg-white dark:bg-slate-900 rounded-lg ring-1 ring-slate-900/5 shadow-lg">
+                <div class="row g-0">
+                    <div class="col-md-4">
+<!--                        adicionar a imagem do banco de dados com o caminho-->
+                        <img src="{{ url_for('static', filename=obj.imagem) }}" class="img-fluid rounded-start img" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body pointer p-1">
+                            <div class="btn-back d-flex" style="justify-content: flex-end;">
+<!--                                Pegar o id para acessar os detalhes da rifa passar o id_usuario como parâmetro-->
+                                {% if obj.status == 'Em Andamento' %}
+                                    <a type="submit" href="{{ url_for('comprar', id=obj.id) }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-cart2" viewBox="0 0 18 18">
+                                        <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+                                    </svg>
+                                    </a>
+                                {% else %}
+                                    <a><br></a>
+                                {% endif %}
+                            </div>
+                            <h5 class="text-dark mb-3 d-flex p-2 bg-f5">Prêmio <a class="fw-bold text-success d-flex bg-f5">: {{obj.titulo}}</a></h5>
+                            <h5 class="text-dark mb-3 d-flex p-2 bg-f5">Valor Unitário <a class="fw-bold text-success d-flex bg-f5">: R$ {{obj.valor}}</a></h5>
+                            {% if obj.status == 'Em Andamento' %}
+                                <span class="fw-bold text-success mb-3 d-flex p-2 bg-f5"><small>{{obj.status}}</small></span>
+                            {% else %}
+                                <span class="fw-bold text-danger mb-1 d-flex p-2 bg-f5"><small>{{obj.status}}</small></span>
+                                <span class="fw-bold text-danger bg-f5"><small class="text-dark ml-2">{{obj.ganhador}}</small></span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </header>
+{% endblock %}

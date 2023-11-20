@@ -1,0 +1,41 @@
+.loading-page{
+    position: absolute;
+    top: 33%;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#svg{
+    position: relative;
+    height: 20%;
+    width: 50%;
+    stroke: black;
+    fill-opacity: 0;
+    stroke-width: 5px;
+    stroke-dashoffset: 10000;
+    animation: draw 8s 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes draw {
+    0% {
+        stroke-dasharray: 5;
+        stroke-dashoffset: 10000;
+    }
+    100% {
+        stroke-dasharray: 1800;
+        stroke-dashoffset: 0;
+    }
+}
+
+.logo-name{
+    color:black;
+    font-size: 15px;
+    letter-spacing: 12px;
+    text-transform: uppercase;
+    top: 10px;
+    margin-left: 20px;
+}

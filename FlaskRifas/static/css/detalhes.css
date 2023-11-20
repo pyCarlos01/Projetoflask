@@ -1,0 +1,25 @@
+header{
+    padding: 15%;
+    padding-top: 2%;
+}
+
+.desc{
+    margin-top: 15%;
+    padding: 1%;
+    background-color: whitesmoke;
+}
+
+input{
+    margin: 2%;
+    padding: 2px;
+    text-align: center;
+}
+
+.text-black{
+    cursor: pointer;
+}
+
+.info{
+    padding-top: 50%;
+    font-size: larger;
+}
