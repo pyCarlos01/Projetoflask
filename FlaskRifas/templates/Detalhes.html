@@ -1,106 +1,20 @@
 {% extends 'base.html' %}
 {% block titulo %}
-    Detalhes Rifas
+    {{rifas.titulo}}
 {% endblock %}
 
 {% block content %}
-<link href="{{ url_for('static', filename='css/detalhes.css') }}" rel="stylesheet">
     <header class="mt-20">
-        <form method="POST" enctype="multipart/form-data" class="form-control">
-            {{ form.csrf_token }}
-            <h1 class="d-flex justify-content-center">Detalhes Rifa</h1>
-            <div class="form-control desc d-flex justify-content-center align-items-center">
-                {{ form.qnty_cotas.label() }}
-                {{ form.qnty_cotas() }}
-                <button class="btn btn-success py-1">{{ form.cota_premiada() }}</button>
-            </div>
-            <br>
-            <h1 class="d-flex justify-content-center">Editar Rifa</h1>
-            <div class="form-control desc d-flex justify-content-center align-items-center">
-                {{ form.sorteio.label() }}
-                {{ form.sorteio() }}
-                {{ form.descricao.label() }}
-                {{ form.descricao() }}
-                <button class="btn btn-success py-1">{{ form.alterar() }}</button>
-            </div>
-        </form>
-        <br>
-        <form class="form-control">
-            <h1 class="d-flex justify-content-center">Buscar por Compradores</h1>
-            <div class="form-control desc d-flex justify-content-center align-items-center">
-                <label for="pesquisa">Buscar Cota:</label>
-                <input type="number" id="pesquisa">
-                <a class="text-black" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" onclick="buscarCota('{{rifas.id}}')">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                    </svg>
-                </a>
-            </div>
-        </form>
-        <br>
-        <form class="form-control">
-            <h1 class="d-flex justify-content-center">Detalhes de Vendas</h1>
-            <div class="form-control desc">
-                <label>Números Vendidos: {{vendidos}}</label>
-                <br>
-                <label>Números Reservados: {{reservados}}</label>
-                <br>
-                <label>Cotas Totais: <a id="qnt">{{rifas.qnty_cotas}}</a></label>
-            </div>
-        </form>
-        <div class="modal fade info" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Info Cotas</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body d-inline-block">
-                        <ul id="comp">
-                            <li>
-                            </li>
-                        </ul>
-                    </div>
+    <link href="{{ url_for('static', filename='css/homepage.css') }}" rel="stylesheet">
+        <div class="loading-page">
+            <svg id="svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
+                <path d="M45.4 305c14.4 67.1 26.4 129 68.2 175H34c-18.7 0-34-15.2-34-34V66c0-18.7 15.2-34 34-34h57.7C77.9 44.6 65.6 59.2 54.8 75.6c-45.4 70-27 146.8-9.4 229.4zM478 32h-90.2c21.4 21.4 39.2 49.5 52.7 84.1l-137.1 29.3c-14.9-29-37.8-53.3-82.6-43.9-24.6 5.3-41 19.3-48.3 34.6-8.8 18.7-13.2 39.8 8.2 140.3 21.1 100.2 33.7 117.7 49.5 131.2 12.9 11.1 33.4 17 58.3 11.7 44.5-9.4 55.7-40.7 57.4-73.2l137.4-29.6c3.2 71.5-18.7 125.2-57.4 163.6H478c18.7 0 34-15.2 34-34V66c0-18.8-15.2-34-34-34z"/>
+            </svg>
+            <div class="name-container">
+                <div class="logo-name">
+                    Carlos Rifas
                 </div>
             </div>
         </div>
-        <script src="{{ url_for('static', filename='js/detalhes.js') }}"></script>
-        <script>
-            const numero = [
-                {% for i in numeros %}
-                    {
-                        'id_rifa': {{i.id_rifa}},
-                        'id_usuario': '{{i.id_usuario}}',
-                        'cota': {{i.cota}},
-                        'id_pagamento': '{{i.id_pagamento}}',
-                        'valor': '{{i.valor}}',
-                        'status': '{{i.status}}',
-                    },
-                {% endfor %}
-            ];
-            
-            const usuario = [
-                {% for i in usuarios %}
-                    {
-                        'id': {{i.id}},
-                        'nome': '{{i.nome}}',
-                        'email': '{{i.email}}',
-                        'telefone':{{i.telefone}},
-                    },
-                {% endfor %}
-            ];
-            
-            const pagamento = [
-                {% for i in pagamentos %}
-                    {   
-                        'txid': '{{i.txid}}',
-                        'id_rifa': {{i.id_rifa}},
-                        'id_usuario': {{i.id_usuario}},
-                        'status': '{{i.status}}'
-                    },
-                {% endfor %}
-            ];
-
-        </script>
     </header>
 {% endblock %}

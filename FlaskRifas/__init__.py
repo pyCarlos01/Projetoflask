@@ -3,6 +3,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager # pip install werkzeug==2.3.0
 from flask_wtf.csrf import CSRFProtect
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 
 
@@ -24,7 +25,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Criar Banco de Dados
 database = SQLAlchemy(app)
-
+migrate = Migrate(app, database)
 # Criptografia
 bcrypt = Bcrypt(app)
 
@@ -36,10 +37,11 @@ login_manager = LoginManager(app)
 login_manager.init_app(app)
 login_manager.login_view='comprar'
 
-from FlaskRifas.models import Usuario, Rifa, Numero, Pagamento, Suporte
+from FlaskRifas.models import *
 
-with app.app_context():
-    database.create_all()
+# with app.app_context():
+#     database.create_all()
 
 # Chamar as rotas
 from FlaskRifas import routes
+

@@ -169,7 +169,6 @@ def login2():
         pass
     return render_template('Login.html', form=form, pag='login2')
 
-
 # Sair
 @app.route('/logout/<valor>/<titulo>/<int:cotas>/<int:id_rifa>', methods=['GET', 'POST'])
 def logout(valor, titulo, cotas, id_rifa):
@@ -253,47 +252,43 @@ def criarrifas(id):
     # Retornar o números reservados para Disponível
     
 
-    return render_template('Rifa.html', rifas=rifas)
+    return render_template('Rifa.html', rifas=rifas, pag='minhasrifas')
  
 # Detalhes Rifas
 @app.route('/detalhes/<int:id>', methods=['GET', 'POST'])
 @login_required
 def detalhes(id):
+    # Banco de Dados
+    bd_rifas = Rifa.query.filter_by(id=id).first()
+
+    return render_template('Detalhes.html', rifas=bd_rifas, pag='detalhes')
+
+@app.route('/editar/<int:id>', methods=['GET', 'POST'])
+@login_required
+def editar(id):
     # Formulário 
     form = FormEditarRifas()
     # Banco de Dados
     bd_rifas = Rifa.query.filter_by(id=id).first()
-    # bd_numeros = Numero.query.filter_by(id_rifa=id).first()
-    vendidos = Numero.query.filter_by(id_rifa=id, status='Pago').count()
-    reservados = Numero.query.filter_by(id_rifa=id, status='Reservado').count()
-    
-    # Verificar requisição do form
+
     if request.method == 'POST':
-                # Caso o botão acionado seja o "Alterar"
-        if form.alterar.data == True:
-            # Verificar campos preenchidos e alterar a rifa no banco de dados
-            try:
-                if form.sorteio.data != None:
-                    bd_rifas.sorteio = form.sorteio.data
-                    database.session.commit()
-                    print(form.sorteio.data)
-                
-                if form.descricao.data != None and form.descricao.data != '':
-                    bd_rifas.descricao = form.descricao.data
-                    database.session.commit()
-            except:
-                pass
+        descricao = request.form['descricao']
+        sorteio = request.form['sorteio']
+        valor = request.form['valor']
+
+        if descricao != '':
+            bd_rifas.descricao = descricao
         
-        # Gerar cotas premiadas e registar na descrição das rifas
-        elif form.cota_premiada.data == True and form.qnty_cotas.data > 0:
-            try:
-                n_sorte = cotaPremiada(id, int(form.qnty_cotas.data))
-                descricao = bd_rifas.descricao
-                bd_rifas.descricao = f'{descricao}, Cota(s) premiadas{n_sorte}'
-                database.session.commit()
-            except:
-                pass
-        # Redirecionar
+        if sorteio != '':
+            bd_rifas.sorteio = sorteio
+
+        if valor != '':
+            valor = valor.replace(',','.')
+            bd_rifas.valor = valor
+
+        if descricao != '' or sorteio != '' or valor != '':
+            database.session.commit()
+
         return redirect(url_for('criarrifas', id=1))
 
     # Passar bancos de dados
@@ -301,11 +296,16 @@ def detalhes(id):
     bd_usuario = Usuario.query.all()
     bd_pagamento = Pagamento.query.all()
 
-    return render_template('Detalhes.html', rifas=bd_rifas, form=form, vendidos=vendidos, reservados=reservados, numeros=bd_numero, pagamentos=bd_pagamento, usuarios=bd_usuario)
+    return render_template('Editar.html', rifas=bd_rifas, form=form, numeros=bd_numero, pagamentos=bd_pagamento, usuarios=bd_usuario, pag='detalhes')
 
 # Comprar Rifa 
 @app.route('/comprar/7617cc49242d36df96a604f9ccb8<int:id>afda66d931a981666451', methods=['GET', 'POST'])
 def comprar(id):
+
+    # Verificar se há um usuário logado caso sim deslogar, para evitar erros na compra
+    if current_user.is_authenticated:
+        logout_user()
+
     # Filtrar "id" no banco de dados "Rifa"
     bd_rifas = Rifa.query.filter_by(id=id).first()
     bd_usuarios = Usuario.query.all()
@@ -414,11 +414,10 @@ def suporte():
  
     # Filtrar chamados por usuário logado, mas se for o adm filtrar todos os chamados
     bd_suporte = Suporte.query.all()
-    
-    if request.method == 'POST':
-        suporte = Suporte(id_usuario=1, descricao=form.descricao.data, status='Em Aberto', solucao='...')
-        database.session.add(suporte)
-        database.session.commit() 
+
+    #     suporte = Suporte(id_usuario=1, descricao=form.descricao.data, status='Em Aberto', solucao='...')
+    #     database.session.add(suporte)
+    #     database.session.commit() 
     
     # Retornar o números reservados para Disponível
     
@@ -448,7 +447,7 @@ def imprimirWebhook():
         database.session.commit()
 
     # Enviar uma requisição para a função pagamento
-    response = requests.post(f'http://{request.host}/pagamento/{valor}/{txid}')
+    response = requests.post(f'https://{request.host}/pagamento/{valor}/{txid}')
         # Verificar o usuário que está logado e enviar ele para outra pagina assim que o pagamento dele cair
     return 'pix ok'
 

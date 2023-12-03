@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block titulo %}
+    {{rifas.titulo}}
+{% endblock %}
+
+{% block content %}
+    <header class="mt-20">
+        <div class="card text-center bg-white dark:bg-slate-900 rounded-lg px-6 py-8 ring-1 ring-slate-900/5 shadow-xl m-10">
+            <div class="card-header border-none">
+                <h1 class="card-title fs-5 font-bold">Editar</h1>
+            </div>
+            <div class="d-flex flex-direction-column justify-content-center justify-content-center p-10 mb-3">
+                <div class="card-body">
+                    <form method="POST" action="" enctype="multipart/form-data">
+                        {{ form.csrf_token }}
+                        <label class="label-custom mb-3">Ação <strong>{{rifas.titulo}}</strong></label> 
+                            <br><br>
+                        <label class="label-custom mb-3">Descrição</label> 
+                        <input type="text" id="descricao" name="descricao" placeholder="Descreva o seu prêmio..." class="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm text-center">
+                            <br>
+                        <label class="label-custom mb-3">Valor</label>
+                        <input type="text" id="valor" name="valor" placeholder="R$ 0.00" class="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm text-center">
+                            <br>
+                        <label class="label-custom mb-3">Sorteio</label>
+                        <input type="date" id="sorteio" name="sorteio" placeholder="DD/MM/YYYY" class="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm text-center">
+                            <br><br>
+                        <div class="mb-2">
+                            <br>
+                            <button class="btn btn-success w-full py-2">
+                                <span class="d-flex align-items-center align-items-center justify-content-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="20" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 20 15">
+                                        <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+                                        <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+                                    </svg>
+                                    <small class="txt">Confirmar Alteração</small>
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}

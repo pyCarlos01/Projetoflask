@@ -6,7 +6,7 @@
 {% block content %}
     <header class="mt-20 p-10">
         <h1 class="fw-bold d-flex justify-content-center align-items-center">Em Breve...</h1>
-        <!-- <h1 style="display: flex;justify-content: center;">SUPORTE</h1>
+        <h1 style="display: flex;justify-content: center;">SUPORTE</h1>
         <form method="POST" action="" class="form-control">
             {% if current_user.id == 1 %}
                 {{ form.csrf_token }}
@@ -22,7 +22,7 @@
 
         {% for i in suporte %}
             <p>{{i.descricao}}</p>
-        {% endfor %} -->
+        {% endfor %}
 
     </header>
 {% endblock %}

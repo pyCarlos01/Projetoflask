@@ -76,14 +76,6 @@ class Suporte(database.Model):
     solucao = database.Column(database.String, nullable=True)
     data_criacao = database.Column(database.DateTime, default=datetime.now())
 
-# class Credenciais(database.Model):
-#     id = database.Column(database.Integer, primary_key=True) 
-#     id_usuario = database.Column(database.Integer, database.ForeignKey('usuario.id'), nullable=False) 
-#     url_prod = status = database.Column(database.String, nullable=False)
-#     client_id = status = database.Column(database.String, nullable=False)
-#     client_sec = status = database.Column(database.String, nullable=False)
-#     cert = status = database.Column(database.String, nullable=False)
-#     chave = status = database.Column(database.String, nullable=False)
 
 # relacionamento
 # definir relacionamento apenas para quem exporta a ForeignKey.

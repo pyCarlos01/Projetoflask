@@ -89,18 +89,20 @@ def reservados(status):
             tempo = datetime.now() - momento_compra
             # Verificar se o tempo de pagamento é igual ou maior que 10 Min (600 seg)
             if tempo.days > 0 or tempo.seconds > 600:
-               # Alterar o status, id_pagamento e id_usuario dos números no banco de Números
-                i.status = 'Disponível'
-                i.id_pagamento = ''
-                i.id_usuario = ''
-                database.session.commit()
+                if status == 'Reservado':
+                # Alterar o status, id_pagamento e id_usuario dos números no banco de Números
+                    i.status = 'Disponível'
+                    i.id_pagamento = ''
+                    i.id_usuario = ''
+                    database.session.commit()
+                
                 # Chamar Função para deletar qrcode
                 deleteQrcode(j.txid)
 
 
 def deleteQrcode(txid):
   # Definir caminho
-  caminho = r'FlaskRifas/static/qrcode/'
+  caminho = r'/static/qrcode/'
   arquivo = os.listdir(caminho)
 
   # Percorrer arquivos da pasta qrcode e verificar se existe aquele qrcode

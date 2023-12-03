@@ -21,9 +21,13 @@
 
 <body class ='bg-white font-primary' onload="cotasCompradas({{current_user.id}})">
   <!-- Verificar a página para colocar a barra de navegação -->
-  {% if pag == 'pagamento' or pag == 'login' or pag == 'criarconta' or pag == 'homepage' or pag == 'carregar' or pag == 'criarconta2' or pag == 'login2' %}
+  {% if pag == 'pagamento' or pag == 'login' or pag == 'criarconta' or pag == 'homepage' or pag == 'carregar' or pag == 'criarconta2' or pag == 'login2' or pag == 'detalhes' %}
   {% else %}
     {% include 'nav.html' %}
+  {% endif %}
+
+  {% if pag == 'detalhes'%}
+    {% include 'nav2.html' %}
   {% endif %}
   {% block content %}
 

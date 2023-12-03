@@ -12,7 +12,6 @@ CLIENT_SECRET = 'Client_Secret_3721dba17535c050b41a1a6e3398fabe004fd6d6'
 CERTIFICADO = 'FlaskRifas/cert/certificado.pem'
 CHAVE = '6603223b-23aa-4a52-85ec-63a2fe05ec07'
 
-
 class PixModel():
     def __init__(self):
         self.headers = {
@@ -41,10 +40,14 @@ class PixModel():
 
     def webhooks(self):
         body = {
-            "webhookUrl": "https://carlosrp.cloudns.nz/webhook?hmac=xyz&ignorar="
+            # "webhookUrl": "https://rifas.carlosdrifas.com/webhook"
+            "webhookUrl": "https://cd.carlosdrifas.com/webhook?hmac=xyz&ignorar="
         }
-        # response = requests.put(f'{URL_PROD}/v2/webhook/{CHAVE}', data=json.dumps(body), headers=self.headers, cert=CERTIFICADO)
-        response = requests.get(f'{URL_PROD}/v2/webhook/{CHAVE}', headers=self.headers,cert=CERTIFICADO)
+        response = requests.put(f'{URL_PROD}/v2/webhook/{CHAVE}', data=json.dumps(body), headers=self.headers, cert=CERTIFICADO)
+        response2 = requests.get(f'{URL_PROD}/v2/webhook/{CHAVE}', headers=self.headers,cert=CERTIFICADO)
+        print(json.loads(response2.content))
+        print()
+        print(response.status_code, json.loads(response.content))
         return response
 
     def gerarCobranca(self, payload, id_rifa, id_cliente, lista_cotas):

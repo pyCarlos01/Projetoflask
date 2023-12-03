@@ -56,5 +56,148 @@
                 {% endfor %}
             </tbody>
         </table>
+        <br><br>
+        <h1 class="text-larger font-bold">Usuarios</h1>
+        <br><br>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Nome
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Telefone
+                    </th>
+                    <th>
+                        Equipe
+                    </th>
+                </tr>
+                {% for i in users %}
+                    <tr>
+                        <td>
+                            {{i.id}}
+                        </td>
+                        <td>
+                            {{i.nome}}
+                        </td>
+                        <td>
+                            {{i.email}}
+                        </td>
+                        <td>
+                            {{i.telefone}}
+                        </td>
+                        <td>
+                            {{i.equipe}}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br><br>
+        <h1 class="text-larger font-bold">Rifas</h1>
+        <br><br>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Titulo
+                    </th>
+                    <th>
+                        Quantidade Cotas
+                    </th>
+                    <th>
+                        Valor
+                    </th>
+                    <th>
+                        Ganhador
+                    </th>
+                    <th>
+                        Criador
+                    </th>
+
+                </tr>
+                {% for i in rifas %}
+                    <tr>
+                        <td>
+                            {{i.id}}
+                        </td>
+                        <td>
+                            {{i.titulo}}
+                        </td>
+                        <td>
+                            {{i.qnty_cotas}}
+                        </td>
+                        <td>
+                            {{i.valor}}
+                        </td>
+                        <td>
+                            {{i.ganhador}}
+                        </td>
+                        <td>
+                            {{i.criador}}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br><br>
+        <h1 class="text-larger font-bold">Credenciais</h1>
+        <br><br>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Id_usuario
+                    </th>
+                    <th>
+                        Client_ID
+                    </th>
+                    <th>
+                        Client_Secrets
+                    </th>
+                    <th>
+                        Cert
+                    </th>
+                    <th>
+                        Chave
+                    </th>
+
+                </tr>
+                {% for i in cred %}
+                    <tr>
+                        <td>
+                            {{i.id}}
+                        </td>
+                        <td>
+                            {{i.id_usuario}}
+                        </td>
+                        <td>
+                            {{i.client_id}}
+                        </td>
+                        <td>
+                            {{i.client_sec}}
+                        </td>
+                        <td>
+                            {{i.cert}}
+                        </td>
+                        <td>
+                            {{i.chave}}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </header>
 {% endblock %}
